@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - UPI Giveaway</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid black; padding: 10px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .clear-btn { margin-top: 10px; padding: 10px; background: red; color: white; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h2>Admin Panel - UPI Giveaway</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Phone Number</th>
+                <th>UPI ID</th>
+                <th>Amount</th>
+            </tr>
+        </thead>
+        <tbody id="dataTable"></tbody>
+    </table>
+    <button class="clear-btn" onclick="clearData()">Clear All Data</button>
+
+    <script>
+        function loadData() {
+            let data = JSON.parse(localStorage.getItem("upiData")) || [];
+            let table = document.getElementById("dataTable");
+            table.innerHTML = "";
+            data.forEach((entry, index) => {
+                table.innerHTML += `<tr>
+                    <td>${index + 1}</td>
+                    <td>${entry.phone}</td>
+                    <td>${entry.upi}</td>
+                    <td>${entry.amount}</td>
+                </tr>`;
+            });
+        }
+
+        function clearData() {
+            localStorage.removeItem("upiData");
+            loadData();
+        }
+
+        loadData();
+    </script>
+</body>
+</html>

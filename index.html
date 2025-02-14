@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Giveaway - Get ?20</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        input, button { margin: 10px; padding: 10px; width: 80%; max-width: 300px; }
+        .success { color: green; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <h2>UPI Giveaway - Get ?20 Instantly</h2>
+    <input type="text" id="phone" placeholder="Enter Phone Number" required><br>
+    <input type="text" id="upi" placeholder="Enter UPI ID" required><br>
+    <button onclick="submitData()">Submit</button>
+    <p class="success" id="successMessage"></p>
+    <br>
+    <a href="admin.html">Check Status (Admin Panel)</a>
+
+    <script>
+        function submitData() {
+            let phone = document.getElementById("phone").value;
+            let upi = document.getElementById("upi").value;
+
+            if (phone === "" || upi === "") {
+                alert("Please fill all fields.");
+                return;
+            }
+
+            let data = JSON.parse(localStorage.getItem("upiData")) || [];
+            data.push({ phone, upi, amount: "?20" });
+            localStorage.setItem("upiData", JSON.stringify(data));
+
+            document.getElementById("successMessage").innerText = "Congratulations! ?20 will be credited soon.";
+            document.getElementById("phone").value = "";
+            document.getElementById("upi").value = "";
+        }
+    </script>
+</body>
+</html>
